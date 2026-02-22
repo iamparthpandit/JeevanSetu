@@ -62,17 +62,22 @@
 .kit-cards {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
     margin-bottom: var(--space-lg);
 }
 
-/* Card */
+/* ============================================
+   Card — Vertical Layout
+   [  80x80 centered image  ]
+   Title                    ( > )
+   Description text
+   Category: Label
+   ============================================ */
 .kit-card {
     display: flex;
-    align-items: center;
-    gap: 16px;
+    flex-direction: column;
     width: 100%;
-    padding: 18px;
+    padding: 20px;
     background: var(--bg-card);
     border-radius: 18px;
     box-shadow:
@@ -98,60 +103,66 @@
     box-shadow: var(--shadow-sm);
 }
 
-/* Image Placeholder */
-.kit-card__image {
+/* Image Box — Centered top */
+.kit-card__image-box {
     width: 80px;
     height: 80px;
-    min-width: 80px;
-    background: #F3F4F6;
+    margin: 0 auto 16px auto;
     border-radius: 14px;
+    overflow: hidden;
+    background: #F3F4F6;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.kit-card__emoji {
-    font-size: 2rem;
+.kit-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Placeholder inside image box */
+.kit-card__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.kit-card__placeholder-icon {
+    font-size: 1.8rem;
     line-height: 1;
 }
 
-/* Body */
-.kit-card__body {
-    flex: 1;
+.kit-card__placeholder-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* Title Row — title + chevron */
+.kit-card__title-row {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
 }
 
 .kit-card__title {
-    font-size: 1.02rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.3;
 }
 
-.kit-card__desc {
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-    line-height: 1.45;
-}
-
-.kit-card__category {
-    display: inline-block;
-    font-size: 0.68rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-top: 2px;
-}
-
-/* Chevron Action */
-.kit-card__action {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
+.kit-card__chevron {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
     border-radius: 50%;
     background: #F3F4F6;
     display: flex;
@@ -161,10 +172,27 @@
     transition: var(--transition-fast);
 }
 
-.kit-card:hover .kit-card__action {
+.kit-card:hover .kit-card__chevron {
     background: #E2E8F0;
     color: var(--text-secondary);
-    transform: scale(1.08);
+    transform: scale(1.1);
+}
+
+/* Description */
+.kit-card__desc {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+/* Category Label */
+.kit-card__category {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 /* Footer */

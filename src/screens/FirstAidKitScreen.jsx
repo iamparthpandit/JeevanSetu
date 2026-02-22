@@ -31,24 +31,37 @@ function FirstAidKitScreen() {
                         style={{ animationDelay: `${index * 0.08}s` }}
                         onClick={() => navigate(`/kit/${item.id}`)}
                     >
-                        {/* Image Placeholder */}
-                        <div className="kit-card__image">
-                            <span className="kit-card__emoji">{item.icon}</span>
+                        {/* Image / Placeholder — centered top */}
+                        <div className="kit-card__image-box">
+                            {item.image ? (
+                                <img
+                                    src={item.image}
+                                    alt={item.title}
+                                    className="kit-card__img"
+                                />
+                            ) : (
+                                <div className="kit-card__placeholder">
+                                    <span className="kit-card__placeholder-icon">{item.icon}</span>
+                                    <span className="kit-card__placeholder-label">Image</span>
+                                </div>
+                            )}
                         </div>
 
-                        {/* Info */}
-                        <div className="kit-card__body">
+                        {/* Title Row — title + chevron */}
+                        <div className="kit-card__title-row">
                             <h3 className="kit-card__title">{item.title}</h3>
-                            <p className="kit-card__desc">{item.description}</p>
-                            <span className="kit-card__category">{item.category}</span>
+                            <div className="kit-card__chevron">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="9 18 15 12 9 6" />
+                                </svg>
+                            </div>
                         </div>
 
-                        {/* Chevron */}
-                        <div className="kit-card__action">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="9 18 15 12 9 6" />
-                            </svg>
-                        </div>
+                        {/* Description */}
+                        <p className="kit-card__desc">{item.description}</p>
+
+                        {/* Category */}
+                        <span className="kit-card__category">Category: {item.category}</span>
                     </button>
                 ))}
             </div>

@@ -1,6 +1,7 @@
-/**
- * First Aid Kit items — medical catalog data
- */
+import adhesiveImg from '../assets/kit/adhesive-bandages.webp';
+import gauzeImg from '../assets/kit/sterile-gauze.jpg';
+import coldPackImg from '../assets/kit/cold-pack.jpg';
+import glovesImg from '../assets/kit/gloves.jpg';
 
 const firstAidKits = [
     {
@@ -9,13 +10,7 @@ const firstAidKits = [
         description: 'Provides protective coverage for minor cuts and abrasions.',
         category: 'Wound Care',
         icon: '🩹',
-    },
-    {
-        id: 'antiseptic-solution',
-        title: 'Antiseptic Solution',
-        description: 'Used to disinfect wounds and prevent infection.',
-        category: 'Infection Control',
-        icon: '💧',
+        image: adhesiveImg,
     },
     {
         id: 'sterile-gauze',
@@ -23,6 +18,7 @@ const firstAidKits = [
         description: 'Essential for dressing wounds and controlling bleeding.',
         category: 'Wound Dressing',
         icon: '🩻',
+        image: gauzeImg,
     },
     {
         id: 'cold-pack',
@@ -30,6 +26,7 @@ const firstAidKits = [
         description: 'Reduces swelling and alleviates soft tissue pain.',
         category: 'Pain Relief',
         icon: '🧊',
+        image: coldPackImg,
     },
     {
         id: 'disposable-gloves',
@@ -37,6 +34,7 @@ const firstAidKits = [
         description: 'Prevents cross-contamination during first aid treatment.',
         category: 'Safety & Hygiene',
         icon: '🧤',
+        image: glovesImg,
     },
 ];
 
