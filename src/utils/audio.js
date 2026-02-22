@@ -1,13 +1,36 @@
 /**
- * Audio utility for step-by-step audio playback.
- * Will be fully implemented in Phase 2.
+ * Audio utility — Text-to-Speech using Web Speech API.
+ * Works fully offline on most browsers.
  */
 
-export function playAudio(src) {
-    // Placeholder — audio playback logic coming in Phase 2
-    console.log('[Audio] Would play:', src);
+let currentUtterance = null;
+
+export function speak(text) {
+    if (!window.speechSynthesis) {
+        console.warn('[Audio] Speech synthesis not supported');
+        return;
+    }
+
+    // Cancel any ongoing speech
+    stopAudio();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    utterance.lang = 'en-US';
+
+    currentUtterance = utterance;
+    window.speechSynthesis.speak(utterance);
 }
 
 export function stopAudio() {
-    console.log('[Audio] Stopped');
+    if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+    }
+    currentUtterance = null;
+}
+
+export function isSpeaking() {
+    return window.speechSynthesis ? window.speechSynthesis.speaking : false;
 }
