@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './UploadScreen.css';
 
@@ -9,6 +9,12 @@ const CLASSIFICATION_MAP = {
         risk: 'Medium',
         riskColor: '#ED8936',
         action: 'Cool under running water for 10–20 minutes. Apply aloe vera.',
+        recommendations: [
+            'Cool under running water for 10–20 minutes',
+            'Apply aloe vera or gentle moisturizer',
+            'Take over-the-counter pain relief if needed',
+            'Monitor for signs of infection',
+        ],
         route: '/emergency/burns_first',
     },
     burns_second: {
@@ -17,14 +23,26 @@ const CLASSIFICATION_MAP = {
         risk: 'High',
         riskColor: '#DD6B20',
         action: 'Cool under running water for 20 minutes. Do NOT break blisters.',
+        recommendations: [
+            'Cool under running water for at least 20 minutes',
+            'Do NOT break blisters',
+            'Apply sterile non-adhesive dressing',
+            'Seek medical attention for large burns',
+        ],
         route: '/emergency/burns_second',
     },
     burns_third: {
         label: 'Third Degree Burn',
-        confidence: 95,
+        confidence: 94,
         risk: 'Critical',
-        riskColor: '#C05621',
+        riskColor: '#C53030',
         action: 'Call emergency services (112) immediately. Do NOT touch the area.',
+        recommendations: [
+            'Do NOT apply ice directly',
+            'Do NOT break blisters',
+            'Cover loosely with sterile cloth',
+            'Seek emergency medical attention immediately',
+        ],
         route: '/emergency/burns_third',
     },
 };
@@ -34,7 +52,28 @@ function classifyByFilename(filename) {
     if (name.includes('blister') || name.includes('second')) return 'burns_second';
     if (name.includes('dark') || name.includes('white') || name.includes('char') || name.includes('third')) return 'burns_third';
     if (name.includes('red') || name.includes('first') || name.includes('mild')) return 'burns_first';
-    return 'burns_first'; // default
+    return 'burns_third'; // default to third degree for demo
+}
+
+/* Animated confidence counter */
+function ConfidenceCounter({ target }) {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        let frame;
+        const duration = 1200;
+        const start = performance.now();
+        const animate = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // ease-out
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) frame = requestAnimationFrame(animate);
+        };
+        frame = requestAnimationFrame(animate);
+        return () => cancelAnimationFrame(frame);
+    }, [target]);
+    return <span className="upload-confidence__number">{count}%</span>;
 }
 
 function UploadScreen() {
@@ -44,21 +83,46 @@ function UploadScreen() {
     const [preview, setPreview] = useState(null);
     const [status, setStatus] = useState('idle'); // idle | analyzing | result
     const [result, setResult] = useState(null);
+    const [isDragging, setIsDragging] = useState(false);
 
-    const handleFileChange = (e) => {
-        const selected = e.target.files[0];
+    const handleFile = useCallback((selected) => {
         if (!selected) return;
         setFile(selected);
         setPreview(URL.createObjectURL(selected));
         setStatus('idle');
         setResult(null);
+    }, []);
+
+    const handleFileChange = (e) => {
+        handleFile(e.target.files[0]);
+    };
+
+    /* Drag & Drop handlers */
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(true);
+    };
+    const handleDragLeave = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+    };
+    const handleDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+        const dropped = e.dataTransfer.files[0];
+        if (dropped && dropped.type.startsWith('image/')) {
+            handleFile(dropped);
+        }
     };
 
     const handleAnalyze = () => {
         if (!file) return;
         setStatus('analyzing');
 
-        // Simulated 2-second AI processing delay
+        // Simulated 2.2s AI processing
         setTimeout(() => {
             const type = classifyByFilename(file.name);
             const classification = CLASSIFICATION_MAP[type];
@@ -67,14 +131,14 @@ function UploadScreen() {
 
             // Vibration feedback
             if ('vibrate' in navigator) {
-                navigator.vibrate(200);
+                navigator.vibrate(300);
             }
 
             // Auto redirect after 2.5 seconds
             setTimeout(() => {
                 navigate(classification.route);
             }, 2500);
-        }, 2000);
+        }, 2200);
     };
 
     const handleReset = () => {
@@ -101,17 +165,25 @@ function UploadScreen() {
                 <h1 className="upload-title">AI Injury Analysis</h1>
                 <p className="upload-subtitle">Upload a photo of the injury for local AI classification.</p>
 
-                {/* Upload Area */}
+                {/* Drag & Drop / Upload Zone */}
                 {!preview ? (
-                    <label className="upload-dropzone" htmlFor="injury-upload">
+                    <label
+                        className={`upload-dropzone ${isDragging ? 'upload-dropzone--active' : ''}`}
+                        htmlFor="injury-upload"
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                    >
                         <div className="upload-dropzone__icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#A0AEC0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                                <circle cx="8.5" cy="8.5" r="1.5" />
-                                <polyline points="21 15 16 10 5 21" />
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke={isDragging ? '#E53E3E' : '#A0AEC0'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
                         </div>
-                        <p className="upload-dropzone__text">Tap to upload injury photo</p>
+                        <p className="upload-dropzone__text">Drag & Drop Injury Image</p>
+                        <p className="upload-dropzone__or">or</p>
+                        <p className="upload-dropzone__text2">Tap to Upload</p>
                         <p className="upload-dropzone__hint">JPG, PNG, WEBP supported</p>
                         <input
                             ref={fileInputRef}
@@ -136,39 +208,57 @@ function UploadScreen() {
                         <div className="upload-analyzing__spinner">
                             <div className="upload-spinner" />
                         </div>
-                        <p className="upload-analyzing__title">Running Local Injury Classification Model...</p>
+                        <p className="upload-analyzing__title">
+                            Running Local Injury Classification Model<span className="upload-ellipsis" />
+                        </p>
                         <div className="upload-analyzing__bar">
                             <div className="upload-analyzing__fill" />
                         </div>
-                        <p className="upload-analyzing__note">⚡ Prototype local AI classifier</p>
+                        <p className="upload-analyzing__note">⚡ AI-powered offline analysis</p>
                     </div>
                 )}
 
                 {/* Result Card */}
                 {status === 'result' && result && (
-                    <div className="upload-result">
+                    <div className={`upload-result ${result.risk === 'Critical' ? 'upload-result--critical' : ''}`}>
                         <div className="upload-result__badge">✅ Classification Complete</div>
 
                         <div className="upload-result__card">
+                            {/* Accent bar */}
+                            <div className="upload-result__accent" style={{ background: result.riskColor }} />
+
                             <div className="upload-result__row">
                                 <span className="upload-result__label">Detected Injury</span>
                                 <span className="upload-result__value upload-result__value--bold">{result.label}</span>
                             </div>
                             <div className="upload-result__divider" />
+
                             <div className="upload-result__row">
                                 <span className="upload-result__label">Confidence</span>
-                                <span className="upload-result__value">{result.confidence}%</span>
+                                <ConfidenceCounter target={result.confidence} />
                             </div>
                             <div className="upload-result__divider" />
+
                             <div className="upload-result__row">
                                 <span className="upload-result__label">Risk Level</span>
-                                <span className="upload-result__risk" style={{ color: result.riskColor }}>{result.risk}</span>
+                                <span className="upload-result__risk-badge" style={{ background: result.riskColor }}>
+                                    {result.risk}
+                                </span>
                             </div>
                             <div className="upload-result__divider" />
-                            <div className="upload-result__row upload-result__row--action">
-                                <span className="upload-result__label">Immediate Action</span>
-                                <span className="upload-result__action">{result.action}</span>
+
+                            <div className="upload-result__recommendations">
+                                <span className="upload-result__label">Immediate Recommendation</span>
+                                <ul className="upload-result__list">
+                                    {result.recommendations.map((rec, i) => (
+                                        <li key={i}>{rec}</li>
+                                    ))}
+                                </ul>
                             </div>
+
+                            <p className="upload-result__disclaimer">
+                                ⚕️ AI-based preliminary assessment. Seek professional care immediately.
+                            </p>
                         </div>
 
                         <p className="upload-result__redirect">Redirecting to emergency guide...</p>
