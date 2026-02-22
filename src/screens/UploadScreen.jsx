@@ -133,11 +133,6 @@ function UploadScreen() {
             if ('vibrate' in navigator) {
                 navigator.vibrate(300);
             }
-
-            // Auto redirect after 2.5 seconds
-            setTimeout(() => {
-                navigate(classification.route);
-            }, 2500);
         }, 2200);
     };
 
@@ -261,7 +256,7 @@ function UploadScreen() {
                             </p>
                         </div>
 
-                        <p className="upload-result__redirect">Redirecting to emergency guide...</p>
+
                     </div>
                 )}
 
@@ -283,10 +278,15 @@ function UploadScreen() {
                         </button>
                     )}
 
-                    {status === 'result' && (
-                        <button className="upload-reset-btn" onClick={handleReset}>
-                            Reset & Try Another
-                        </button>
+                    {status === 'result' && result && (
+                        <>
+                            <button className="upload-analyze-btn" onClick={() => navigate(result.route)}>
+                                View Emergency Guide →
+                            </button>
+                            <button className="upload-reset-btn" onClick={handleReset}>
+                                Reset & Try Another
+                            </button>
+                        </>
                     )}
                 </div>
             </div>
