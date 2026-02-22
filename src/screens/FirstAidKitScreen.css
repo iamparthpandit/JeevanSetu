@@ -1,0 +1,190 @@
+/* First Aid Kit Screen */
+.kit-screen {
+    gap: 0;
+    background: linear-gradient(180deg, #F9FAFB 0%, #F1F5F9 40%, #EDF2F7 100%);
+}
+
+.kit-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding: var(--space-sm) 0;
+    margin-bottom: var(--space-sm);
+    transition: var(--transition-fast);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.kit-back-btn:hover {
+    color: var(--text-primary);
+}
+
+/* Header */
+.kit-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    padding-top: var(--space-sm);
+}
+
+.kit-header__badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(56, 161, 105, 0.08);
+    color: var(--green);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+    border: 1px solid rgba(56, 161, 105, 0.12);
+}
+
+.kit-header__title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+
+.kit-header__subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Cards Container */
+.kit-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: var(--space-lg);
+}
+
+/* Card */
+.kit-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 18px;
+    background: var(--bg-card);
+    border-radius: 18px;
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        0 4px 16px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    text-align: left;
+    transition: var(--transition);
+    -webkit-tap-highlight-color: transparent;
+    animation: kitCardEntry 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.kit-card:hover {
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.06),
+        0 8px 28px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+.kit-card:active {
+    transform: scale(0.97) translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Image Placeholder */
+.kit-card__image {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    background: #F3F4F6;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kit-card__emoji {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+/* Body */
+.kit-card__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.kit-card__title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.kit-card__desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+.kit-card__category {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+}
+
+/* Chevron Action */
+.kit-card__action {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    background: #F3F4F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: var(--transition-fast);
+}
+
+.kit-card:hover .kit-card__action {
+    background: #E2E8F0;
+    color: var(--text-secondary);
+    transform: scale(1.08);
+}
+
+/* Footer */
+.kit-footer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: var(--space-md) 0 var(--space-xl);
+    font-style: italic;
+}
+
+/* Staggered card entry */
+@keyframes kitCardEntry {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

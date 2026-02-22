@@ -17,6 +17,7 @@ function App() {
                 <Route path="/emergency/:type" element={<EmergencyScreen />} />
                 <Route path="/upload" element={<UploadScreen />} />
                 <Route path="/kit" element={<FirstAidKitScreen />} />
+                <Route path="/kit/:itemId" element={<FirstAidKitScreen />} />
             </Routes>
         </div>
     );
