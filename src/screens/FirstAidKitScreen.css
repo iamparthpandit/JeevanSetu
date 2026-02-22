@@ -105,10 +105,11 @@
 
 /* Image Box — Centered top */
 .kit-card__image-box {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
     margin: 0 auto 16px auto;
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
     background: #F3F4F6;
     display: flex;
