@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import EmergencyCard from '../components/EmergencyCard';
 import VoiceButton from '../components/VoiceButton';
 import OfflineIndicator from '../components/OfflineIndicator';
@@ -6,6 +7,29 @@ import './HomeScreen.css';
 
 function HomeScreen() {
     const navigate = useNavigate();
+    const [installPrompt, setInstallPrompt] = useState(null);
+    const [showInstall, setShowInstall] = useState(false);
+
+    // PWA install prompt detection
+    useEffect(() => {
+        const handler = (e) => {
+            e.preventDefault();
+            setInstallPrompt(e);
+            setShowInstall(true);
+        };
+        window.addEventListener('beforeinstallprompt', handler);
+        return () => window.removeEventListener('beforeinstallprompt', handler);
+    }, []);
+
+    const handleInstall = async () => {
+        if (!installPrompt) return;
+        installPrompt.prompt();
+        const { outcome } = await installPrompt.userChoice;
+        if (outcome === 'accepted') {
+            setShowInstall(false);
+        }
+        setInstallPrompt(null);
+    };
 
     const emergencies = [
         { emoji: '🐍', title: 'Snake Bite', severity: 'High Risk', color: '#E53E3E', route: '/emergency/snake_bite' },
@@ -24,6 +48,17 @@ function HomeScreen() {
                 </div>
                 <OfflineIndicator />
             </header>
+
+            {/* Install Banner */}
+            {showInstall && (
+                <div className="install-banner">
+                    <div className="install-banner__text">
+                        <span className="install-banner__title">📲 Install Jeevan Setu</span>
+                        <span className="install-banner__desc">Works offline, always ready</span>
+                    </div>
+                    <button className="install-banner__btn" onClick={handleInstall}>Install</button>
+                </div>
+            )}
 
             {/* Emergency Cards */}
             <section className="home-section">

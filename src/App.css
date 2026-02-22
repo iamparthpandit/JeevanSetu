@@ -12,96 +12,20 @@
     overflow-x: hidden;
 }
 
-/* Screen wrapper */
+/* Screen wrapper — all screens get entrance animation */
 .screen {
-    padding: 24px 18px;
+    padding: var(--space-lg) 18px;
     min-height: 100vh;
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
+    animation: pageEnter 0.35s ease-out;
 }
 
 /* Safe area padding for notched devices */
 @supports (padding-top: env(safe-area-inset-top)) {
     .screen {
-        padding-top: calc(24px + env(safe-area-inset-top));
-        padding-bottom: calc(24px + env(safe-area-inset-bottom));
+        padding-top: calc(var(--space-lg) + env(safe-area-inset-top));
+        padding-bottom: calc(var(--space-lg) + env(safe-area-inset-bottom));
     }
-}
-
-/* Page transition fade */
-.screen-enter {
-    opacity: 0;
-    transform: translateY(8px);
-}
-
-.screen-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-/* Placeholder screens (for Voice, Upload, Kit) */
-.placeholder-screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    min-height: 100vh;
-    min-height: 100dvh;
-    text-align: center;
-    padding: 24px 18px;
-}
-
-.placeholder-screen h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--text-primary);
-}
-
-.placeholder-screen p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-}
-
-.placeholder-screen .nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    max-width: 280px;
-}
-
-.placeholder-screen .nav-btn {
-    display: block;
-    padding: 14px 24px;
-    background: var(--bg-card);
-    border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-sm);
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    transition: var(--transition);
-    text-align: center;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-}
-
-.placeholder-screen .nav-btn:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
-}
-
-.placeholder-screen .nav-btn:active {
-    transform: scale(0.97);
-}
-
-.placeholder-screen .nav-btn.primary {
-    background: var(--red);
-    color: #fff;
-    border-color: transparent;
-}
-
-.placeholder-screen .nav-btn.primary:hover {
-    background: var(--red-dark);
 }

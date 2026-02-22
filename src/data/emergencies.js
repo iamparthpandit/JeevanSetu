@@ -52,7 +52,7 @@ const emergencies = {
 
     burns: {
         id: 'burns',
-        title: 'Burns',
+        title: 'Burns (General)',
         emoji: '🔥',
         severity: 'High',
         color: '#ED8936',
@@ -93,6 +93,147 @@ const emergencies = {
                 description: 'Call emergency services for large burns, burns on face/hands/joints, or deep burns. Keep the person warm and comfortable.',
                 audioText: 'Step 5. Call emergency services for large or deep burns, especially on face, hands or joints. Keep the person warm and comfortable.',
                 illustration: 'burn_step5',
+            },
+        ],
+    },
+
+    burns_first: {
+        id: 'burns_first',
+        title: 'First Degree Burn',
+        emoji: '🔥',
+        severity: 'Medium',
+        color: '#ED8936',
+        warning: [
+            'Do NOT apply ice or ice water directly.',
+            'Do NOT use adhesive bandages on the skin.',
+            'Do NOT apply butter, oil, or ointments.',
+            'Do NOT pop any small blisters that form.',
+            'Do NOT expose the area to direct sunlight during healing.',
+        ],
+        steps: [
+            {
+                title: 'Cool Under Running Water',
+                description: 'Hold the burned area under cool (not cold) running water for 10–20 minutes. This reduces heat and prevents deeper damage.',
+                audioText: 'Step 1. Hold the burned area under cool running water for 10 to 20 minutes. This reduces heat and prevents deeper damage.',
+                illustration: 'burn_step2',
+            },
+            {
+                title: 'Apply Aloe Vera or Moisturizer',
+                description: 'After cooling, gently apply aloe vera gel or a gentle moisturizing lotion. This soothes the skin and promotes healing.',
+                audioText: 'Step 2. After cooling, gently apply aloe vera gel or a gentle moisturizing lotion to soothe the skin.',
+                illustration: 'burn_step4',
+            },
+            {
+                title: 'Take Pain Relief',
+                description: 'Over-the-counter pain relief like ibuprofen or acetaminophen can help. Follow dosage instructions on the label.',
+                audioText: 'Step 3. Take over the counter pain relief like ibuprofen if needed. Follow the dosage instructions.',
+                illustration: 'burn_step3',
+            },
+            {
+                title: 'Cover Loosely',
+                description: 'If the area might rub against clothing, cover with a sterile non-stick bandage. Keep it loose.',
+                audioText: 'Step 4. If the area might rub against clothing, cover it loosely with a sterile non-stick bandage.',
+                illustration: 'burn_step4',
+            },
+            {
+                title: 'Monitor for 48 Hours',
+                description: 'Watch for increased redness, swelling, or signs of infection. First degree burns typically heal within 7–10 days.',
+                audioText: 'Step 5. Watch for increased redness, swelling, or signs of infection over 48 hours. First degree burns heal within 7 to 10 days.',
+                illustration: 'burn_step5',
+            },
+        ],
+    },
+
+    burns_second: {
+        id: 'burns_second',
+        title: 'Second Degree Burn',
+        emoji: '🔥',
+        severity: 'High',
+        color: '#DD6B20',
+        warning: [
+            'Do NOT pop or drain blisters — they protect healing skin.',
+            'Do NOT apply ice directly to the burned area.',
+            'Do NOT use butter, toothpaste, or home remedies.',
+            'Do NOT wrap the burn tightly.',
+            'Do NOT peel away dead or blistered skin.',
+        ],
+        steps: [
+            {
+                title: 'Cool Immediately',
+                description: 'Hold the burned area under cool running water for at least 20 minutes. Start as soon as possible — every second counts.',
+                audioText: 'Step 1. Hold the burned area under cool running water for at least 20 minutes. Start immediately, every second counts.',
+                illustration: 'burn_step2',
+            },
+            {
+                title: 'Do NOT Break Blisters',
+                description: 'Blisters indicate second degree burns. They protect the raw skin underneath. Leave them intact.',
+                audioText: 'Step 2. Do not break blisters. They protect the raw skin underneath and should be left intact.',
+                illustration: 'burn_step1',
+            },
+            {
+                title: 'Apply Sterile Dressing',
+                description: 'Cover the burn with a sterile non-adhesive dressing or clean cling wrap. Keep it loose to allow air flow.',
+                audioText: 'Step 3. Cover the burn with a sterile non-adhesive dressing or clean cling wrap. Keep it loose.',
+                illustration: 'burn_step4',
+            },
+            {
+                title: 'Elevate if Possible',
+                description: 'If the burn is on a limb, elevate it above heart level to reduce swelling and pain.',
+                audioText: 'Step 4. If the burn is on a limb, elevate it above heart level to reduce swelling and pain.',
+                illustration: 'burn_step3',
+            },
+            {
+                title: 'Seek Medical Attention',
+                description: 'Second degree burns larger than 3 inches, or on face/hands/groin, require professional medical care. Call emergency services.',
+                audioText: 'Step 5. Seek medical attention for burns larger than 3 inches or those on face, hands, or groin. Call emergency services.',
+                illustration: 'burn_step5',
+            },
+        ],
+    },
+
+    burns_third: {
+        id: 'burns_third',
+        title: 'Third Degree Burn',
+        emoji: '🔥',
+        severity: 'High',
+        color: '#C05621',
+        warning: [
+            'Do NOT remove clothing stuck to the burn.',
+            'Do NOT immerse large burns in cold water — risk of hypothermia.',
+            'Do NOT apply any creams, ointments, or sprays.',
+            'Do NOT give the person anything to eat or drink.',
+            'Do NOT use cotton or fluffy material to cover the burn.',
+        ],
+        steps: [
+            {
+                title: 'Call Emergency Services NOW',
+                description: 'Third degree burns are life-threatening. Call emergency services (112) immediately. Do not delay.',
+                audioText: 'Step 1. Third degree burns are life-threatening. Call emergency services at 112 immediately. Do not delay.',
+                illustration: 'burn_step5',
+            },
+            {
+                title: 'Protect the Area',
+                description: 'Cover the burn loosely with a clean, dry, non-fluffy cloth or sterile sheet. Do not apply pressure.',
+                audioText: 'Step 2. Cover the burn loosely with a clean dry cloth or sterile sheet. Do not apply any pressure.',
+                illustration: 'burn_step4',
+            },
+            {
+                title: 'Check for Breathing',
+                description: 'If the burn involves the face, neck, or chest, monitor breathing carefully. Be prepared to perform CPR if needed.',
+                audioText: 'Step 3. If the burn involves face, neck, or chest, monitor breathing carefully. Be prepared for CPR if needed.',
+                illustration: 'burn_step1',
+            },
+            {
+                title: 'Treat for Shock',
+                description: 'Lay the person flat (if no spinal injury). Elevate legs slightly. Keep them warm with a blanket over unburned areas.',
+                audioText: 'Step 4. Lay the person flat and elevate their legs slightly. Keep them warm with a blanket over unburned areas.',
+                illustration: 'burn_step3',
+            },
+            {
+                title: 'Do NOT Remove Stuck Clothing',
+                description: 'If clothing is melted or stuck to the skin, do not pull it off. Cut around it carefully. Wait for paramedics.',
+                audioText: 'Step 5. If clothing is stuck to the skin, do not pull it off. Cut around it carefully and wait for paramedics.',
+                illustration: 'burn_step2',
             },
         ],
     },

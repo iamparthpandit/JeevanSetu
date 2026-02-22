@@ -1,5 +1,6 @@
 .home-screen {
     padding-bottom: 0;
+    background: linear-gradient(180deg, #F9FAFB 0%, #F1F5F9 50%, #EDF2F7 100%);
 }
 
 /* Header */
@@ -7,7 +8,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 28px;
+    margin-bottom: var(--space-xl);
 }
 
 .home-header__left {
@@ -17,7 +18,7 @@
 }
 
 .home-title {
-    font-size: 1.65rem;
+    font-size: 1.75rem;
     font-weight: 800;
     color: var(--text-primary);
     letter-spacing: -0.02em;
@@ -32,11 +33,11 @@
 
 /* Section */
 .home-section {
-    margin-bottom: 24px;
+    margin-bottom: var(--space-lg);
 }
 
 .home-section__title {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--text-muted);
     text-transform: uppercase;
@@ -47,24 +48,24 @@
 .home-cards {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-sm);
 }
 
 /* Action Buttons */
 .home-actions {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-sm);
 }
 
 .action-btn {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 16px;
+    padding: var(--space-md);
     background: var(--bg-card);
     border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-card);
     border: 1px solid rgba(0, 0, 0, 0.04);
     cursor: pointer;
     transition: var(--transition);
@@ -75,11 +76,12 @@
 
 .action-btn:hover {
     box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
 .action-btn:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
+    box-shadow: var(--shadow-sm);
 }
 
 .action-btn__icon {
@@ -112,7 +114,7 @@
 .action-btn-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: var(--space-sm);
 }
 
 .action-btn-row .action-btn {
@@ -121,4 +123,54 @@
     text-align: center;
     gap: 6px;
     padding: 18px 12px;
+}
+
+/* Install Banner */
+.install-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px var(--space-md);
+    background: linear-gradient(135deg, #EBF8FF 0%, #BEE3F8 100%);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-md);
+    animation: pageEnter 0.4s ease-out;
+    border: 1px solid rgba(49, 130, 206, 0.12);
+}
+
+.install-banner__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.install-banner__title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.install-banner__desc {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+.install-banner__btn {
+    padding: 8px 16px;
+    background: var(--blue);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    transition: var(--transition-fast);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.install-banner__btn:hover {
+    background: #2B6CB0;
+}
+
+.install-banner__btn:active {
+    transform: scale(0.95);
 }
