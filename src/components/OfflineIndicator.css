@@ -1,0 +1,42 @@
+.offline-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--green-light);
+    border-radius: var(--radius-full);
+    width: fit-content;
+}
+
+.offline-indicator__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+    animation: dotPulse 2s ease-in-out infinite;
+}
+
+.offline-indicator__dot--offline {
+    background: var(--orange);
+    animation: none;
+}
+
+.offline-indicator__text {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #276749;
+    letter-spacing: 0.02em;
+}
+
+@keyframes dotPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}

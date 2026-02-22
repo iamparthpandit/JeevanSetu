@@ -12,16 +12,36 @@
     overflow-x: hidden;
 }
 
-/* Screen wrapper for page transitions */
+/* Screen wrapper */
 .screen {
-    padding: 20px 16px;
+    padding: 24px 18px;
     min-height: 100vh;
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
 }
 
-/* Placeholder screen styling */
+/* Safe area padding for notched devices */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .screen {
+        padding-top: calc(24px + env(safe-area-inset-top));
+        padding-bottom: calc(24px + env(safe-area-inset-bottom));
+    }
+}
+
+/* Page transition fade */
+.screen-enter {
+    opacity: 0;
+    transform: translateY(8px);
+}
+
+.screen-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Placeholder screens (for Voice, Upload, Kit) */
 .placeholder-screen {
     display: flex;
     flex-direction: column;
@@ -31,7 +51,7 @@
     min-height: 100vh;
     min-height: 100dvh;
     text-align: center;
-    padding: 20px;
+    padding: 24px 18px;
 }
 
 .placeholder-screen h1 {
@@ -64,6 +84,7 @@
     color: var(--text-primary);
     transition: var(--transition);
     text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .placeholder-screen .nav-btn:hover {
@@ -71,9 +92,14 @@
     transform: translateY(-1px);
 }
 
+.placeholder-screen .nav-btn:active {
+    transform: scale(0.97);
+}
+
 .placeholder-screen .nav-btn.primary {
     background: var(--red);
     color: #fff;
+    border-color: transparent;
 }
 
 .placeholder-screen .nav-btn.primary:hover {
